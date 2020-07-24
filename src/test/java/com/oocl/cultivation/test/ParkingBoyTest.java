@@ -83,7 +83,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_no_ticket_when_park_given_ten_cars_and_a_parking_boy() {
+    void should_get_no_ticket_when_park_given_twenty_cars_and_a_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
 
@@ -155,7 +155,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_not_enough_position_when_park_given_ten_cars_and_a_parking_boy() {
+    void should_get_not_enough_position_when_park_given_twenty_cars_and_a_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
 
