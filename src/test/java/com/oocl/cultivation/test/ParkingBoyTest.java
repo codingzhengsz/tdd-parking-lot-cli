@@ -127,13 +127,16 @@ class ParkingBoyTest {
     void should_get_unrecognized_parking_ticket_msg_when_fetch_given_a_wrong_ticket_and_a_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("A0001");
+        Ticket ticket = parkingBoy.park(car);
 
         // when
-        Car car = parkingBoy.fetch(null);
+        parkingBoy.fetch(ticket);
+        Car fetchedCar = parkingBoy.fetch(ticket);
         String msg = parkingBoy.queryMessage();
 
         // then
-        assertNull(car);
+        assertNull(fetchedCar);
         assertEquals("Unrecognized parking ticket.", msg);
     }
 
