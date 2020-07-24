@@ -5,8 +5,7 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.Ticket;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingBoyTest {
     @Test
@@ -50,5 +49,20 @@ class ParkingBoyTest {
 
         // then
         assertEquals("HK-0754", car.getLicense());
+    }
+
+    @Test
+    void should_return_no_car_when_fetch_given_a_wrong_ticket_and_a_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("A0001");
+        parkingBoy.park(car);
+        Ticket ticket = new Ticket("A0002", "A0002-Ticket");
+
+        // when
+        Car fetchedCar = parkingBoy.fetch(ticket);
+
+        // then
+        assertNull(fetchedCar);
     }
 }
