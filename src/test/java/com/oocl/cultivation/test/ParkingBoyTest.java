@@ -43,7 +43,7 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy();
         Car car = new Car("HK-0754");
         parkingBoy.park(car);
-        Ticket ticket = new Ticket("HK-0754", "HK-0754-Ticket");
+        Ticket ticket = new Ticket("HK-0754", "HK-0754-Ticket", "ParkingLot_1");
 
         // when
         Car fetchedCar = parkingBoy.fetch(ticket);
@@ -58,7 +58,7 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy();
         Car car = new Car("A0001");
         parkingBoy.park(car);
-        Ticket ticket = new Ticket("A0002", "A0002-Ticket");
+        Ticket ticket = new Ticket("A0002", "A0002-Ticket", "ParkingLot_1");
 
         // when
         Car fetchedCar = parkingBoy.fetch(ticket);
@@ -171,7 +171,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_ticket_when_park_given_11_car_and_2_parking_lot_and_1_parking_boy() {
+    void should_get_parking_lot_1_when_park_given_11_car_and_2_parking_lots_and_1_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
 
@@ -183,5 +183,7 @@ class ParkingBoyTest {
 
         // then
         assertNotNull(ticket);
+        assertEquals("ParkingLot_1", ticket.getPosition());
     }
+
 }

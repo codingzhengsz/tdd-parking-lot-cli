@@ -4,10 +4,12 @@ public class Ticket {
 
     private String license;
     private String number;
+    private String position;
 
-    public Ticket(String license, String number) {
+    public Ticket(String license, String number, String position) {
         this.license = license;
         this.number = number;
+        this.position = position;
     }
 
     public String getLicense() {
@@ -16,5 +18,9 @@ public class Ticket {
 
     public String getNumber() {
         return number;
+    }
+
+    public String getPosition() {
+        return position;
     }
 }

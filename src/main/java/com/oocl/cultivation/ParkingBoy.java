@@ -26,7 +26,7 @@ public class ParkingBoy {
             }
         }
         this.carList.add(car);
-        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket");
+        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", "");
     }
 
     public Car fetch(Ticket ticket) {
