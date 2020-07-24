@@ -7,7 +7,7 @@ public class ParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
-        return new Car("");
+        return new Car(ticket.getLicense());
     }
 
 }
