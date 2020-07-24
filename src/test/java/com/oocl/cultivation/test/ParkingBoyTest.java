@@ -81,4 +81,20 @@ class ParkingBoyTest {
         // then
         assertNull(fetchedCar);
     }
+
+    @Test
+    void should_get_no_ticket_when_park_given_ten_cars_and_a_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("A0001");
+
+        // when
+        Ticket ticket = null;
+        for (int i = 0; i <= 10; i++) {
+            ticket = parkingBoy.park(car);
+        }
+
+        // then
+        assertNull(ticket);
+    }
 }
