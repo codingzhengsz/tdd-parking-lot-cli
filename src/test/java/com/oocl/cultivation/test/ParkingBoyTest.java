@@ -197,7 +197,7 @@ class ParkingBoyTest {
 
         // then
         assertNotNull(ticket);
-        assertEquals("ParkingLot_2", ticket.getPosition());
+        assertEquals("ParkingLot_1", ticket.getPosition());
     }
 
     @Test
