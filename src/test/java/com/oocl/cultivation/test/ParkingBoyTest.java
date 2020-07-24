@@ -41,14 +41,15 @@ class ParkingBoyTest {
     void should_return_a_car_when_fetch_given_a_ticket_and_a_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
-        //        Car car = new Car("HK-0754");
+        Car car = new Car("HK-0754");
+        parkingBoy.park(car);
         Ticket ticket = new Ticket("HK-0754", "HK-0754-Ticket");
 
         // when
-        Car car = parkingBoy.fetch(ticket);
+        Car fetchedCar = parkingBoy.fetch(ticket);
 
         // then
-        assertEquals("HK-0754", car.getLicense());
+        assertEquals("HK-0754", fetchedCar.getLicense());
     }
 
     @Test
