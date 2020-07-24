@@ -236,4 +236,24 @@ class ParkingBoyTest {
         assertNotNull(ticket);
         assertEquals("ParkingLot_2", ticket.getPosition());
     }
+
+    @Test
+    void should_get_parking_lot_1_when_park_given_3_cars_and_2_parking_lot_and_1_parking_boy() {
+        // given
+        ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
+        parkingLot1.setCapacity(45);
+        ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
+
+        // when
+        Ticket ticket = null;
+        for (int i = 0; i < 3; i++) {
+            ticket = parkingBoy.park(new Car("A000" + i));
+            System.out.println(ticket.getPosition());
+        }
+
+        // then
+        assertNotNull(ticket);
+        assertEquals("ParkingLot_2", ticket.getPosition());
+    }
 }
