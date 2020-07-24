@@ -171,15 +171,13 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_parking_lot_1_when_park_given_11_car_and_2_parking_lots_and_1_parking_boy() {
+    void should_get_parking_lot_1_when_park_given_1_car_and_2_parking_lots_and_1_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
+        Car car = new Car("A0001");
 
         // when
-        Ticket ticket = null;
-        for (int i = 0; i < 11; i++) {
-            ticket = parkingBoy.park(new Car("A000" + i));
-        }
+        Ticket ticket = parkingBoy.park(car);
 
         // then
         assertNotNull(ticket);
