@@ -2,8 +2,8 @@ package com.oocl.cultivation;
 
 public class ParkingBoy {
 
-    public String[] park(Car[] cars) {
-        return new String[]{cars[0].getLicense()};
+    public Ticket park(Car car) {
+        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket");
     }
 
 }
