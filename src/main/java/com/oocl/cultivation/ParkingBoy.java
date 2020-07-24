@@ -17,7 +17,12 @@ public class ParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
-        return new Car(ticket.getLicense());
+        for (Car car : carList) {
+            if (car.getLicense().equals(ticket.getLicense())) {
+                return car;
+            }
+        }
+        return null;
     }
 
 }
