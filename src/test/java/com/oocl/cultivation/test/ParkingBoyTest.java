@@ -184,4 +184,19 @@ class ParkingBoyTest {
         assertEquals("ParkingLot_1", ticket.getPosition());
     }
 
+    @Test
+    void should_get_parking_lot_2_when_park_given_11_car_2_parking_lots_and_1_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+
+        // when
+        Ticket ticket = null;
+        for (int i = 0; i < 11; i++) {
+            ticket = parkingBoy.park(new Car("A000" + i));
+        }
+
+        // then
+        assertNotNull(ticket);
+        assertEquals("ParkingLot_2", ticket.getPosition());
+    }
 }
