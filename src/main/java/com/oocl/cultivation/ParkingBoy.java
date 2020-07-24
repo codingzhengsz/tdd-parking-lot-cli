@@ -17,6 +17,7 @@ public class ParkingBoy {
             return null;
         }
         if (this.carList.size() == 10) {
+            this.errorMsg = "Not enough position.";
             return null;
         }
         for (Car parkedCar : carList) {
