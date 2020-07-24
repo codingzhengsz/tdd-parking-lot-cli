@@ -25,6 +25,9 @@ public class ParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
+        if (null == ticket) {
+            return null;
+        }
         for (Car car : carList) {
             if (car.getLicense().equals(ticket.getLicense())) {
                 this.carList.remove(car);
