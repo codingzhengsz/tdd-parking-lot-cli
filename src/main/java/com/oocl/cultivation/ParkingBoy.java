@@ -12,6 +12,9 @@ public class ParkingBoy {
     }
 
     public Ticket park(Car car) {
+        if (null == car) {
+            return null;
+        }
         if (this.carList.size() == 10) {
             return null;
         }
