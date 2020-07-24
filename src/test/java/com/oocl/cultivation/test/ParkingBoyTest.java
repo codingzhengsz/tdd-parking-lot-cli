@@ -155,7 +155,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_not_enough_position_when_park_given_ten_cars_amd_a_parking_boy() {
+    void should_get_not_enough_position_when_park_given_ten_cars_and_a_parking_boy() {
         // given
         ParkingBoy parkingBoy = new ParkingBoy();
 
@@ -168,5 +168,20 @@ class ParkingBoyTest {
         // then
         assertNull(ticket);
         assertEquals("Not enough position.", msg);
+    }
+
+    @Test
+    void should_get_ticket_when_park_given_11_car_and_2_parking_lot_and_1_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+
+        // when
+        Ticket ticket = null;
+        for (int i = 0; i < 11; i++) {
+            ticket = parkingBoy.park(new Car("A000" + i));
+        }
+
+        // then
+        assertNotNull(ticket);
     }
 }
