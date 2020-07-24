@@ -26,7 +26,7 @@ public class ParkingBoy {
             }
         }
         this.carList.add(car);
-        if (this.carList.size() % 2 == 0) {
+        if (this.carList.size() > 10) {
             return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", "ParkingLot_2");
         }
         return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", "ParkingLot_1");
