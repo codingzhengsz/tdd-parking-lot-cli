@@ -15,6 +15,11 @@ public class ParkingBoy {
         if (this.carList.size() == 10) {
             return null;
         }
+        for (Car parkedCar : carList) {
+            if (parkedCar.getLicense().equals(car.getLicense())) {
+                return null;
+            }
+        }
         this.carList.add(car);
         return new Ticket(car.getLicense(), car.getLicense() + "-Ticket");
     }
