@@ -4,7 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ParkingBoyTest {
     @Test
@@ -14,9 +14,11 @@ class ParkingBoyTest {
         Car car = new Car("HK-0754");
 
         // when
-        String ticket = parkingBoy.park(car);
+        String[] ticket = parkingBoy.park(new Car[]{car});
 
         // then
-        assertEquals("HK-0754", ticket);
+        assertArrayEquals(new String[]{"HK-0754"}, ticket);
     }
+
+
 }
