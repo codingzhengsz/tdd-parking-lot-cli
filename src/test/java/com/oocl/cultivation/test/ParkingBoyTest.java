@@ -238,7 +238,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    void should_get_parking_lot_1_when_park_given_3_cars_and_2_parking_lot_and_1_parking_boy() {
+    void should_get_parking_lot_1_when_park_given_7_cars_and_2_parking_lot_and_1_parking_boy() {
         // given
         ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
         parkingLot1.setCapacity(45);
@@ -247,7 +247,7 @@ class ParkingBoyTest {
 
         // when
         Ticket ticket = null;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 7; i++) {
             ticket = parkingBoy.park(new Car("A000" + i));
             System.out.println(ticket.getPosition());
         }

@@ -33,10 +33,11 @@ public class ParkingBoy {
             }
         }
         ParkingLot lotWithMorePositions = null;
-        int emptyPositions = 0;
+        double availablePositionRate = 0.0;
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getCapacity() - parkingLot.getCarList().size() > emptyPositions) {
-                emptyPositions = parkingLot.getCapacity() - parkingLot.getCarList().size();
+            int emptyPositions = parkingLot.getCapacity() - parkingLot.getCarList().size();
+            if (((double)emptyPositions / parkingLot.getCapacity()) > availablePositionRate) {
+                availablePositionRate = (double)emptyPositions / parkingLot.getCapacity();
                 lotWithMorePositions = parkingLot;
             }
         }
