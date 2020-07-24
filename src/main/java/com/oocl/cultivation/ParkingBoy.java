@@ -6,12 +6,16 @@ import java.util.List;
 public class ParkingBoy {
 
     private List<Car> carList;
+    private String errorMsg;
 
     public ParkingBoy() {
         this.carList = new ArrayList<>();
     }
 
     public Ticket park(Car car) {
+        if (null == car) {
+            return null;
+        }
         if (this.carList.size() == 10) {
             return null;
         }
@@ -26,6 +30,7 @@ public class ParkingBoy {
 
     public Car fetch(Ticket ticket) {
         if (null == ticket) {
+            this.errorMsg = "Please provide your parking ticket.";
             return null;
         }
         for (Car car : carList) {
@@ -34,10 +39,11 @@ public class ParkingBoy {
                 return car;
             }
         }
+        this.errorMsg = "Unrecognized parking ticket.";
         return null;
     }
 
     public String queryMessage() {
-        return "Unrecognized parking ticket.";
+        return this.errorMsg;
     }
 }
