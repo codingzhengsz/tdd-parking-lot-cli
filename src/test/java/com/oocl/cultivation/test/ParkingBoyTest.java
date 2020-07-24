@@ -20,5 +20,16 @@ class ParkingBoyTest {
         assertArrayEquals(new String[]{"HK-0754"}, ticket);
     }
 
+    @Test
+    void should_return_tickets_when_given_2_car_and_a_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car[] cars = new Car[]{new Car("HK-0754"), new Car("HK-0756")};
 
+        // when
+        String[] tickets = parkingBoy.park(cars);
+
+        // then
+        assertArrayEquals(new String[]{"HK-0754", "HK-0756"}, tickets);
+    }
 }
