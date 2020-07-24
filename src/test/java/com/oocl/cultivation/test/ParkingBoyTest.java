@@ -2,8 +2,12 @@ package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
+import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.Ticket;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +15,8 @@ class ParkingBoyTest {
     @Test
     void should_return_ticket_when_park_given_a_car_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car("HK-0754");
 
         // when
@@ -24,7 +29,8 @@ class ParkingBoyTest {
     @Test
     void should_return_tickets_when_park_given_2_car_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car carA = new Car("HK-0754");
         Car carB = new Car("HK-0756");
 
@@ -40,7 +46,8 @@ class ParkingBoyTest {
     @Test
     void should_return_a_car_when_fetch_given_a_ticket_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car("HK-0754");
         parkingBoy.park(car);
         Ticket ticket = new Ticket("HK-0754", "HK-0754-Ticket", "ParkingLot_1");
@@ -55,7 +62,8 @@ class ParkingBoyTest {
     @Test
     void should_return_no_car_when_fetch_given_a_wrong_ticket_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car("A0001");
         parkingBoy.park(car);
         Ticket ticket = new Ticket("A0002", "A0002-Ticket", "ParkingLot_1");
@@ -70,7 +78,8 @@ class ParkingBoyTest {
     @Test
     void should_return_no_car_when_fetch_given_a_used_ticket_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car("A0001");
         Ticket ticket = parkingBoy.park(car);
 
@@ -85,7 +94,8 @@ class ParkingBoyTest {
     @Test
     void should_get_no_ticket_when_park_given_twenty_cars_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
 
         // when
         Ticket ticket = null;
@@ -100,7 +110,8 @@ class ParkingBoyTest {
     @Test
     void should_get_no_ticket_when_park_given_a_parked_car_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car parkedCar = new Car("A0001");
         parkingBoy.park(parkedCar);
 
@@ -114,7 +125,8 @@ class ParkingBoyTest {
     @Test
     void should_get_no_ticket_when_park_given_a_null_car_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
 
         // when
         Ticket ticket = parkingBoy.park(null);
@@ -126,7 +138,8 @@ class ParkingBoyTest {
     @Test
     void should_get_unrecognized_parking_ticket_msg_when_fetch_given_a_wrong_ticket_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
         Car car = new Car("A0001");
         Ticket ticket = parkingBoy.park(car);
 
@@ -143,7 +156,8 @@ class ParkingBoyTest {
     @Test
     void should_get_need_provide_ticket_msg_when_fetch_given_a_null_ticket_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
 
         // when
         Car car = parkingBoy.fetch(null);
@@ -157,7 +171,8 @@ class ParkingBoyTest {
     @Test
     void should_get_not_enough_position_when_park_given_twenty_cars_and_a_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot("ParkingLot_1");
+        ParkingBoy parkingBoy = new ParkingBoy(Collections.singletonList(parkingLot));
 
         // when
         Ticket ticket = null;
@@ -173,7 +188,9 @@ class ParkingBoyTest {
     @Test
     void should_get_parking_lot_1_when_park_given_1_car_and_2_parking_lots_and_1_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
+        ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
         Car car = new Car("A0001");
 
         // when
@@ -187,7 +204,9 @@ class ParkingBoyTest {
     @Test
     void should_get_parking_lot_2_when_park_given_11_car_2_parking_lots_and_1_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
+        ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
 
         // when
         Ticket ticket = null;
@@ -197,13 +216,15 @@ class ParkingBoyTest {
 
         // then
         assertNotNull(ticket);
-        assertEquals("ParkingLot_2", ticket.getPosition());
+        assertEquals("ParkingLot_1", ticket.getPosition());
     }
 
     @Test
     void should_get_parking_lot_2_when_park_given_8_car_and_2_parking_lots_and_1_parking_boy() {
         // given
-        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
+        ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
 
         // when
         Ticket ticket = null;

@@ -1,35 +1,47 @@
 package com.oocl.cultivation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
 
-    private List<Car> carList;
+    //    private List<Car> carList;
     private String errorMsg;
+    private List<ParkingLot> parkingLots;
 
-    public ParkingBoy() {
-        this.carList = new ArrayList<>();
+    public ParkingBoy(List<ParkingLot> parkingLots) {
+//        this.carList = new ArrayList<>();
+        this.parkingLots = parkingLots;
     }
 
     public Ticket park(Car car) {
         if (null == car) {
             return null;
         }
-        if (this.carList.size() == 20) {
+        int countOfHasAvailablePositionLot = 0;
+        for (ParkingLot lot : this.parkingLots) {
+            if (lot.getCarList().size() == 10) {
+                countOfHasAvailablePositionLot++;
+            }
+        }
+        if (countOfHasAvailablePositionLot == this.parkingLots.size()) {
             this.errorMsg = "Not enough position.";
             return null;
         }
-        for (Car parkedCar : carList) {
-            if (parkedCar.getLicense().equals(car.getLicense())) {
+        for (ParkingLot parkingLot : parkingLots) {
+            if (parkingLot.hasCar(car)) {
                 return null;
             }
         }
-        this.carList.add(car);
-        if (this.carList.size() > 10) {
-            return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", "ParkingLot_2");
+        ParkingLot lotWithMorePositions = null;
+        int emptyPositions = 0;
+        for (ParkingLot parkingLot : parkingLots) {
+            if (parkingLot.getCapacity() - parkingLot.getCarList().size() > emptyPositions) {
+                emptyPositions = parkingLot.getCapacity() - parkingLot.getCarList().size();
+                lotWithMorePositions = parkingLot;
+            }
         }
-        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", "ParkingLot_1");
+        lotWithMorePositions.parking(car);
+        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", lotWithMorePositions.getName());
     }
 
     public Car fetch(Ticket ticket) {
@@ -37,13 +49,12 @@ public class ParkingBoy {
             this.errorMsg = "Please provide your parking ticket.";
             return null;
         }
-        for (Car car : carList) {
-            if (car.getLicense().equals(ticket.getLicense())) {
-                this.carList.remove(car);
-                return car;
+        for (ParkingLot parkingLot : parkingLots) {
+            if (ticket.getPosition().equals(parkingLot.getName())) {
+                this.errorMsg = "Unrecognized parking ticket.";
+                return parkingLot.fetching(ticket);
             }
         }
-        this.errorMsg = "Unrecognized parking ticket.";
         return null;
     }
 
