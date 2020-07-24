@@ -89,7 +89,7 @@ class ParkingBoyTest {
 
         // when
         Ticket ticket = null;
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 20; i++) {
             ticket = parkingBoy.park(new Car("A000" + i));
         }
 
@@ -161,7 +161,7 @@ class ParkingBoyTest {
 
         // when
         Ticket ticket = null;
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 20; i++) {
             ticket = parkingBoy.park(new Car("A000" + i));
         }
         String msg = parkingBoy.queryMessage();

@@ -16,7 +16,7 @@ public class ParkingBoy {
         if (null == car) {
             return null;
         }
-        if (this.carList.size() == 10) {
+        if (this.carList.size() == 20) {
             this.errorMsg = "Not enough position.";
             return null;
         }
