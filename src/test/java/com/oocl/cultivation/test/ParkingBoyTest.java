@@ -37,4 +37,18 @@ class ParkingBoyTest {
         assertEquals("HK-0754-Ticket", ticketA.getNumber());
         assertEquals("HK-0756-Ticket", ticketB.getNumber());
     }
+
+    @Test
+    void should_return_a_car_when_fetch_given_a_ticket_and_a_parking_boy() {
+        // given
+        ParkingBoy parkingBoy = new ParkingBoy();
+        //        Car car = new Car("HK-0754");
+        Ticket ticket = new Ticket("HK-0754", "HK-0754-Ticket");
+
+        // when
+        Car car = parkingBoy.fetch(ticket);
+
+        // then
+        assertEquals("HK-0754", car.getLicense());
+    }
 }
