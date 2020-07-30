@@ -42,7 +42,7 @@ public class ParkingBoy {
             }
         }
         lotWithMorePositions.parking(car);
-        return new Ticket(car.getLicense(), car.getLicense() + "-Ticket", lotWithMorePositions.getName());
+        return new Ticket();
     }
 
     public Car fetch(Ticket ticket) {
@@ -51,10 +51,10 @@ public class ParkingBoy {
             return null;
         }
         for (ParkingLot parkingLot : parkingLots) {
-            if (ticket.getPosition().equals(parkingLot.getName())) {
+//            if (ticket.getPosition().equals(parkingLot.getName())) {
                 this.errorMsg = "Unrecognized parking ticket.";
                 return parkingLot.fetching(ticket);
-            }
+//            }
         }
         return null;
     }
