@@ -1,4 +1,3 @@
 package com.oocl.cultivation;
 
-public class Ticket {
-}
+public class Ticket {}

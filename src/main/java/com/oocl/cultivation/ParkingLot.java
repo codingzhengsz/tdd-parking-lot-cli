@@ -1,60 +1,58 @@
 package com.oocl.cultivation;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.oocl.exception.NotEnoughPositionException;
+import com.oocl.exception.RepeatedParkingException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParkingLot {
 
-    String name;
-    int capacity;
-    List<Car> carList;
+  String name;
+  int capacity;
+  private Map<Ticket, Car> ticketCarMap;
 
-    public ParkingLot(String name) {
-        this.name = name;
-        this.capacity = 10;
-        this.carList = new ArrayList<>(10);
-    }
+  public ParkingLot(String name, int capacity) {
+    this.name = name;
+    this.capacity = capacity;
+    this.ticketCarMap = new HashMap<>();
+  }
 
-    public String getName() {
-        return name;
-    }
+  public Map<Ticket, Car> getTicketCarMap() {
+    return ticketCarMap;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
+  }
 
-    public int getCapacity() {
-        return capacity;
+  public Ticket park(Car car) throws RuntimeException {
+    if (!isNotFull()) {
+      throw new NotEnoughPositionException("Not enough position.");
     }
+    if (this.ticketCarMap.containsValue(car)) {
+      throw new RepeatedParkingException("Repeated Car");
+    }
+    Ticket ticket = new Ticket();
+    this.ticketCarMap.put(ticket, car);
+    return ticket;
+  }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
+  public Car fetch(Ticket ticket) {
+    Car fetchedCar = ticketCarMap.getOrDefault(ticket, null);
+    ticketCarMap.remove(ticket);
+    return fetchedCar;
+  }
 
-    public void parking(Car car) {
-        this.carList.add(car);
-    }
+  public boolean isNotFull() {
+    return this.ticketCarMap.size() != this.capacity;
+  }
 
-    public Car fetching(Ticket ticket) {
-        for (Car car : carList) {
-            if (car.getLicense().equals(ticket.getLicense())) {
-                this.carList.remove(car);
-                return car;
-            }
-        }
-        return null;
-    }
+  public int getEmptyPositionNumber() {
+    return this.capacity - this.ticketCarMap.size();
+  }
 
-    public boolean hasCar(Car car) {
-        for (Car parkedCar : carList) {
-            if (parkedCar.getLicense().equals(car.getLicense())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public List<Car> getCarList() {
-        return carList;
-    }
+  public double getAvailablePositionRate() {
+    return 1.0d - ((double) this.ticketCarMap.size() / this.capacity);
+  }
 }
