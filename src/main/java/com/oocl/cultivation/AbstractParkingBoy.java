@@ -19,7 +19,7 @@ public abstract class AbstractParkingBoy {
     if (null == ticket) {
       throw new NeedProvideParkingTicketException("Please provide your parking ticket.");
     }
-    Car car = this.parkingLots.stream().map(lot -> lot.fetch(ticket)).findFirst().get();
+    Car car = this.parkingLots.stream().map(lot -> lot.fetch(ticket)).findFirst().orElse(null);
     if (null == car) {
       throw new UnrecognizedPackingTicketException("Unrecognized parking ticket.");
     }

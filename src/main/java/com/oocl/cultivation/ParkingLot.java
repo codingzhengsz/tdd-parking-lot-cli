@@ -33,13 +33,15 @@ public class ParkingLot {
     if (this.ticketCarMap.containsValue(car)) {
       throw new RepeatedParkingException("Repeated Car");
     }
-    Ticket ticket = new Ticket("", "", this.name);
+    Ticket ticket = new Ticket();
     this.ticketCarMap.put(ticket, car);
     return ticket;
   }
 
   public Car fetch(Ticket ticket) {
-    return ticketCarMap.getOrDefault(ticket, null);
+    Car fetchedCar = ticketCarMap.getOrDefault(ticket, null);
+    ticketCarMap.remove(ticket);
+    return fetchedCar;
   }
 
   public boolean isNotFull() {
