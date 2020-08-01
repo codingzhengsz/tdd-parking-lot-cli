@@ -183,25 +183,23 @@ class StandardParkingBoyTest {
     assertFalse(parkingLot2.isFull());
   }
 
-  //
-  //  @Test
-  //  void should_get_parking_lot_2_when_park_given_11_car_2_parking_lots_and_1_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
-  //    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
-  //    StandardParkingBoy standardParkingBoy =
-  //        new StandardParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
-  //
-  //    // when
-  //    Ticket ticket = null;
-  //    for (int i = 0; i < 11; i++) {
-  //      ticket = standardParkingBoy.park(new Car("A000" + i));
-  //    }
-  //
-  //    // then
-  //    assertNotNull(ticket);
-  //    assertEquals("ParkingLot_1", ticket.getPosition());
-  //  }
+  @Test
+  void should_parking_when_park_given_11_car_2_parking_lots_and_1_parking_boy() {
+    // given
+    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1", 10);
+    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2", 10);
+    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+    standardParkingBoy.setParkingLots(Arrays.asList(parkingLot1, parkingLot2));
+
+    // when
+    for (int i = 0; i < 11; i++) {
+      standardParkingBoy.parking(new Car());
+    }
+
+    // then
+    assertTrue(parkingLot1.isFull());
+    assertFalse(parkingLot2.isFull());
+  }
   //
   //  @Test
   //  void should_get_parking_lot_2_when_park_given_8_car_and_2_parking_lots_and_1_parking_boy() {

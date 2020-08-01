@@ -2,8 +2,6 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
-import com.oocl.cultivation.exception.NotEnoughPositionException;
-import com.oocl.cultivation.exception.RepeatedParkingException;
 
 import java.util.HashMap;
 import java.util.Map;
