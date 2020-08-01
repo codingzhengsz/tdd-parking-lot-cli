@@ -2,6 +2,7 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideCarException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
@@ -157,4 +158,21 @@ public class SuperSmartParkingBoyTest {
     // then
     assertEquals("This car is parked", exception.getMessage());
   }
+
+  @Test
+  void should_throw_need_car_exception_when_park_given_a_null_car_and_a_super_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy();
+    superSmartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+
+    // when
+    NeedProvideCarException exception =
+        assertThrows(NeedProvideCarException.class, () -> superSmartParkingBoy.parking(null));
+
+    // then
+    assertEquals("Please provide your car.", exception.getMessage());
+  }
+
+
 }
