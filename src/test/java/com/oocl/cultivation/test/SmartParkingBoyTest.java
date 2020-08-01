@@ -6,6 +6,7 @@ import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
 
@@ -123,7 +124,7 @@ public class SmartParkingBoyTest {
   @Test
   void should_throw_unrecognized_parking_ticket_exception_when_fetch_given_a_used_ticket_and_a_smart_parking_boy() {
     // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    ParkingLot parkingLot = new ParkingLot("1", 10);
     SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
     smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
     Car car = new Car();
@@ -137,5 +138,22 @@ public class SmartParkingBoyTest {
 
     // then
     assertEquals("Unrecognized parking ticket.", exception.getMessage());
+  }
+
+  @Test
+  void should_throw_parked_car_exception_when_park_given_a_parked_car_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car parkedCar = new Car();
+    smartParkingBoy.parking(parkedCar);
+
+    // when
+    RepeatedParkingException exception =
+            assertThrows(RepeatedParkingException.class, () -> smartParkingBoy.parking(parkedCar));
+
+    // then
+    assertEquals("This car is parked", exception.getMessage());
   }
 }
