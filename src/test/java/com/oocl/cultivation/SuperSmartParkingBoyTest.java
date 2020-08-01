@@ -3,6 +3,7 @@ package com.oocl.cultivation;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -67,14 +68,14 @@ public class SuperSmartParkingBoyTest {
   void should_return_tickets_when_park_given_2_car_and_a_super_smart_parking_boy() {
     // given
     ParkingLot parkingLot = new ParkingLot("1", 10);
-    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
-    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy();
+    superSmartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
     Car carA = new Car();
     Car carB = new Car();
 
     // when
-    Ticket ticketA = smartParkingBoy.parking(carA);
-    Ticket ticketB = smartParkingBoy.parking(carB);
+    Ticket ticketA = superSmartParkingBoy.parking(carA);
+    Ticket ticketB = superSmartParkingBoy.parking(carB);
 
     // then
     assertNotNull(ticketA);
@@ -86,15 +87,35 @@ public class SuperSmartParkingBoyTest {
   void should_return_a_car_when_fetch_given_a_ticket_and_a_super_smart_parking_boy() {
     // given
     ParkingLot parkingLot = new ParkingLot("1", 10);
-    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
-    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy();
+    superSmartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
     Car car = new Car();
-    Ticket ticket = smartParkingBoy.parking(car);
+    Ticket ticket = superSmartParkingBoy.parking(car);
 
     // when
-    Car fetchedCar = smartParkingBoy.fetching(ticket);
+    Car fetchedCar = superSmartParkingBoy.fetching(ticket);
 
     // then
     assertNotNull(fetchedCar);
+  }
+
+  @Test
+  void
+      should_throw_unrecognized_parking_ticket_exception_when_fetch_given_a_wrong_ticket_and_a_super_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy();
+    superSmartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car car = new Car();
+    superSmartParkingBoy.parking(car);
+    Ticket ticket = new Ticket();
+
+    // when
+    UnrecognizedPackingTicketException exception =
+        assertThrows(
+            UnrecognizedPackingTicketException.class, () -> superSmartParkingBoy.fetching(ticket));
+
+    // then
+    assertEquals("Unrecognized parking ticket.", exception.getMessage());
   }
 }
