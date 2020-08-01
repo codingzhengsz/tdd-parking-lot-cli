@@ -5,10 +5,7 @@ import com.oocl.cultivation.SmartParkingBoy;
 import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
-import com.oocl.cultivation.exception.NeedProvideCarException;
-import com.oocl.cultivation.exception.NotEnoughPositionException;
-import com.oocl.cultivation.exception.RepeatedParkingException;
-import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
+import com.oocl.cultivation.exception.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -162,7 +159,7 @@ public class SmartParkingBoyTest {
   @Test
   void should_throw_need_car_exception_when_park_given_a_null_car_and_a_smart_parking_boy() {
     // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    ParkingLot parkingLot = new ParkingLot("1", 10);
     SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
     smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
 
@@ -172,5 +169,21 @@ public class SmartParkingBoyTest {
 
     // then
     assertEquals("Please provide your car.", exception.getMessage());
+  }
+
+  @Test
+  void
+      should_throw_need_provide_ticket_exception_when_fetch_given_a_null_ticket_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+
+    // when
+    Throwable exception =
+        assertThrows(NeedProvideParkingTicketException.class, () -> smartParkingBoy.fetching(null));
+
+    // then
+    assertEquals("Please provide your parking ticket.", exception.getMessage());
   }
 }
