@@ -20,14 +20,7 @@ public class ParkingLot {
     this.ticketCarMap = new HashMap<>();
   }
 
-  public void setCapacity(int capacity) {
-    this.capacity = capacity;
-  }
-
   public Ticket park(Car car) throws RuntimeException {
-    if (!isNotFull()) {
-      throw new NotEnoughPositionException("Not enough position.");
-    }
     if (this.ticketCarMap.containsValue(car)) {
       throw new RepeatedParkingException("Repeated Car");
     }

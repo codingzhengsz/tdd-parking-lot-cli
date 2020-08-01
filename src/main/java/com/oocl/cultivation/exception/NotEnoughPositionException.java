@@ -1,7 +1,8 @@
 package com.oocl.cultivation.exception;
 
 public class NotEnoughPositionException extends RuntimeException {
-    public NotEnoughPositionException(String message) {
-        super(message);
+    @Override
+    public String getMessage() {
+        return "Not enough position.";
     }
 }

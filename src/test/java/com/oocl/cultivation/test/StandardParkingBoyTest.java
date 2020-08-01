@@ -4,7 +4,6 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
-import com.oocl.cultivation.exception.NeedProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
@@ -103,112 +102,113 @@ class StandardParkingBoyTest {
   }
 
   @Test
-  void should_get_no_ticket_when_park_given_twenty_cars_and_a_parking_boy() {
-    // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-
-    // when
-    Ticket ticket = null;
-    for (int i = 0; i <= 20; i++) {
-      ticket = standardParkingBoy.parking(new Car());
-    }
-
-    // then
-    assertNull(ticket);
-  }
-
-  @Test
-  void should_get_no_ticket_when_park_given_a_parked_car_and_a_parking_boy() {
-    // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car parkedCar = new Car();
-    standardParkingBoy.parking(parkedCar);
-
-    // when
-    Ticket ticket = standardParkingBoy.parking(parkedCar);
-
-    // then
-    assertNull(ticket);
-  }
-
-  @Test
-  void should_get_no_ticket_when_park_given_a_null_car_and_a_parking_boy() {
-    // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-
-    // when
-    Ticket ticket = standardParkingBoy.parking(null);
-
-    // then
-    assertNull(ticket);
-  }
-
-  @Test
   void
-      should_get_unrecognized_parking_ticket_msg_when_fetch_given_a_wrong_ticket_and_a_parking_boy() {
+      should_get_no_ticket_when_park_given_one_cars_and_a_parking_boy_and_a_parking_lot_without_position() {
     // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car();
-    Ticket ticket = standardParkingBoy.parking(car);
-
-    // when
-    Throwable exception =
-        assertThrows(
-            UnrecognizedPackingTicketException.class,
-            () -> {
-              standardParkingBoy.fetching(ticket);
-            });
-
-    // then
-    assertEquals("Unrecognized parking ticket.", exception.getMessage());
-  }
-
-  @Test
-  void should_get_need_provide_ticket_msg_when_fetch_given_a_null_ticket_and_a_parking_boy() {
-    // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 0);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
 
     // when
-    Throwable exception =
-        assertThrows(
-            NeedProvideParkingTicketException.class,
-            () -> {
-              standardParkingBoy.fetching(null);
-            });
+    NotEnoughPositionException exception =
+        assertThrows(NotEnoughPositionException.class, () -> standardParkingBoy.parking(new Car()));
 
-    // then
-    assertEquals("Please provide your parking ticket.", exception.getMessage());
-  }
-
-  @Test
-  void should_get_not_enough_position_when_park_given_twenty_cars_and_a_parking_boy() {
-    // given
-    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-    parkingLot.setCapacity(1);
-    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-
-    // when
-    standardParkingBoy.parking(new Car());
-    Throwable exception =
-        assertThrows(
-            NotEnoughPositionException.class,
-            () -> {
-              standardParkingBoy.parking(new Car());
-            });
     // then
     assertEquals("Not enough position.", exception.getMessage());
   }
+
+  //  @Test
+  //  void should_get_no_ticket_when_park_given_a_parked_car_and_a_parking_boy() {
+  //    // given
+  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+  //    Car parkedCar = new Car();
+  //    standardParkingBoy.parking(parkedCar);
+  //
+  //    // when
+  //    Ticket ticket = standardParkingBoy.parking(parkedCar);
+  //
+  //    // then
+  //    assertNull(ticket);
+  //  }
+  //
+  //  @Test
+  //  void should_get_no_ticket_when_park_given_a_null_car_and_a_parking_boy() {
+  //    // given
+  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+  //
+  //    // when
+  //    Ticket ticket = standardParkingBoy.parking(null);
+  //
+  //    // then
+  //    assertNull(ticket);
+  //  }
+  //
+  //  @Test
+  //  void
+  //
+  // should_get_unrecognized_parking_ticket_msg_when_fetch_given_a_wrong_ticket_and_a_parking_boy()
+  // {
+  //    // given
+  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+  //    Car car = new Car();
+  //    Ticket ticket = standardParkingBoy.parking(car);
+  //
+  //    // when
+  //    Throwable exception =
+  //        assertThrows(
+  //            UnrecognizedPackingTicketException.class,
+  //            () -> {
+  //              standardParkingBoy.fetching(ticket);
+  //            });
+  //
+  //    // then
+  //    assertEquals("Unrecognized parking ticket.", exception.getMessage());
+  //  }
+  //
+  //  @Test
+  //  void should_get_need_provide_ticket_msg_when_fetch_given_a_null_ticket_and_a_parking_boy() {
+  //    // given
+  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+  //
+  //    // when
+  //    Throwable exception =
+  //        assertThrows(
+  //            NeedProvideParkingTicketException.class,
+  //            () -> {
+  //              standardParkingBoy.fetching(null);
+  //            });
+  //
+  //    // then
+  //    assertEquals("Please provide your parking ticket.", exception.getMessage());
+  //  }
+  //
+  //  @Test
+  //  void should_get_not_enough_position_when_park_given_twenty_cars_and_a_parking_boy() {
+  //    // given
+  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+  //    parkingLot.setCapacity(1);
+  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+  //
+  //    // when
+  //    standardParkingBoy.parking(new Car());
+  //    Throwable exception =
+  //        assertThrows(
+  //            NotEnoughPositionException.class,
+  //            () -> {
+  //              standardParkingBoy.parking(new Car());
+  //            });
+  //    // then
+  //    assertEquals("Not enough position.", exception.getMessage());
+  //  }
 
   //  @Test
   //  void should_get_parking_lot_1_when_park_given_1_car_and_2_parking_lots_and_1_parking_boy() {
