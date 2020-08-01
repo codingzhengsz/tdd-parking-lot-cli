@@ -1,20 +1,14 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.SmartParkingBoy;
-import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SmartParkingBoyTest {
 
