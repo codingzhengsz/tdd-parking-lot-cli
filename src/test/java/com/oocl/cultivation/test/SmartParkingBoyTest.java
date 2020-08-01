@@ -6,6 +6,7 @@ import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -97,5 +98,25 @@ public class SmartParkingBoyTest {
 
     // then
     assertNotNull(fetchedCar);
+  }
+
+  @Test
+  void
+      should_throw_unrecognized_parking_ticket_exception_when_fetch_given_a_wrong_ticket_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car car = new Car();
+    smartParkingBoy.parking(car);
+    Ticket ticket = new Ticket();
+
+    // when
+    UnrecognizedPackingTicketException exception =
+        assertThrows(
+            UnrecognizedPackingTicketException.class, () -> smartParkingBoy.fetching(ticket));
+
+    // then
+    assertEquals("Unrecognized parking ticket.", exception.getMessage());
   }
 }
