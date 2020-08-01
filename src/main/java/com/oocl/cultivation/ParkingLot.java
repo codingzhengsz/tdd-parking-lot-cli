@@ -32,8 +32,8 @@ public class ParkingLot {
     return fetchedCar;
   }
 
-  public boolean isNotFull() {
-    return this.ticketCarMap.size() != this.capacity;
+  public boolean isFull() {
+    return this.ticketCarMap.size() >= this.capacity;
   }
 
   public boolean hasCar(Car car) {

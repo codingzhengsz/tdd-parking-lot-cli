@@ -7,6 +7,7 @@ import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -158,52 +159,30 @@ class StandardParkingBoyTest {
     // when
     Throwable exception =
         assertThrows(
-            NeedProvideParkingTicketException.class,
-            () -> {
-              standardParkingBoy.fetching(null);
-            });
+            NeedProvideParkingTicketException.class, () -> standardParkingBoy.fetching(null));
 
     // then
     assertEquals("Please provide your parking ticket.", exception.getMessage());
   }
 
-  //
-  //  @Test
-  //  void should_get_not_enough_position_when_park_given_twenty_cars_and_a_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-  //    parkingLot.setCapacity(1);
-  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-  //
-  //    // when
-  //    standardParkingBoy.parking(new Car());
-  //    Throwable exception =
-  //        assertThrows(
-  //            NotEnoughPositionException.class,
-  //            () -> {
-  //              standardParkingBoy.parking(new Car());
-  //            });
-  //    // then
-  //    assertEquals("Not enough position.", exception.getMessage());
-  //  }
+  @Test
+  void should_get_ticket_when_park_given_1_car_and_2_parking_lots_and_1_parking_boy() {
+    // given
+    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1", 1);
+    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2", 1);
+    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+    standardParkingBoy.setParkingLots(Arrays.asList(parkingLot1, parkingLot2));
+    Car car = new Car();
 
-  //  @Test
-  //  void should_get_parking_lot_1_when_park_given_1_car_and_2_parking_lots_and_1_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
-  //    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
-  //    StandardParkingBoy standardParkingBoy =
-  //        new StandardParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
-  //    Car car = new Car("A0001");
-  //
-  //    // when
-  //    Ticket ticket = standardParkingBoy.park(car);
-  //
-  //    // then
-  //    assertNotNull(ticket);
-  //    assertEquals("ParkingLot_1", ticket.getPosition());
-  //  }
+    // when
+    Ticket ticket = standardParkingBoy.parking(car);
+
+    // then
+    assertNotNull(ticket);
+    assertTrue(parkingLot1.isFull());
+    assertFalse(parkingLot2.isFull());
+  }
+
   //
   //  @Test
   //  void should_get_parking_lot_2_when_park_given_11_car_2_parking_lots_and_1_parking_boy() {

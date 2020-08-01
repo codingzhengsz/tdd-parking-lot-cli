@@ -8,7 +8,7 @@ public class StandardParkingBoy extends AbstractParkingBoy {
   public ParkingLot findWillBeParkedParkingLot() {
     return this.getParkingLots().stream()
         .findFirst()
-        .filter(ParkingLot::isNotFull)
+        .filter(parkingLot -> !parkingLot.isFull())
         .orElseThrow(NotEnoughPositionException::new);
   }
 }
