@@ -1,4 +1,4 @@
-package com.oocl.cultivation.test;
+package com.oocl.cultivation;
 
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.StandardParkingBoy;
@@ -200,25 +200,4 @@ class StandardParkingBoyTest {
     assertTrue(parkingLot1.isFull());
     assertFalse(parkingLot2.isFull());
   }
-  //
-  //  @Test
-  //  void should_get_parking_lot_1_when_park_given_7_cars_and_2_parking_lot_and_1_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
-  //    parkingLot1.setCapacity(45);
-  //    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
-  //    StandardParkingBoy standardParkingBoy =
-  //        new StandardParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
-  //
-  //    // when
-  //    Ticket ticket = null;
-  //    for (int i = 0; i < 7; i++) {
-  //      ticket = standardParkingBoy.park(new Car("A000" + i));
-  //      System.out.println(ticket.getPosition());
-  //    }
-  //
-  //    // then
-  //    assertNotNull(ticket);
-  //    assertEquals("ParkingLot_2", ticket.getPosition());
-  //  }
 }
