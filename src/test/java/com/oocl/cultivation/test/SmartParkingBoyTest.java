@@ -5,6 +5,7 @@ import com.oocl.cultivation.SmartParkingBoy;
 import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideCarException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
@@ -122,7 +123,8 @@ public class SmartParkingBoyTest {
   }
 
   @Test
-  void should_throw_unrecognized_parking_ticket_exception_when_fetch_given_a_used_ticket_and_a_smart_parking_boy() {
+  void
+      should_throw_unrecognized_parking_ticket_exception_when_fetch_given_a_used_ticket_and_a_smart_parking_boy() {
     // given
     ParkingLot parkingLot = new ParkingLot("1", 10);
     SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
@@ -133,8 +135,8 @@ public class SmartParkingBoyTest {
     // when
     smartParkingBoy.fetching(ticket);
     UnrecognizedPackingTicketException exception =
-            assertThrows(
-                    UnrecognizedPackingTicketException.class, () -> smartParkingBoy.fetching(ticket));
+        assertThrows(
+            UnrecognizedPackingTicketException.class, () -> smartParkingBoy.fetching(ticket));
 
     // then
     assertEquals("Unrecognized parking ticket.", exception.getMessage());
@@ -151,9 +153,24 @@ public class SmartParkingBoyTest {
 
     // when
     RepeatedParkingException exception =
-            assertThrows(RepeatedParkingException.class, () -> smartParkingBoy.parking(parkedCar));
+        assertThrows(RepeatedParkingException.class, () -> smartParkingBoy.parking(parkedCar));
 
     // then
     assertEquals("This car is parked", exception.getMessage());
+  }
+
+  @Test
+  void should_throw_need_car_exception_when_park_given_a_null_car_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+
+    // when
+    NeedProvideCarException exception =
+        assertThrows(NeedProvideCarException.class, () -> smartParkingBoy.parking(null));
+
+    // then
+    assertEquals("Please provide your car.", exception.getMessage());
   }
 }
