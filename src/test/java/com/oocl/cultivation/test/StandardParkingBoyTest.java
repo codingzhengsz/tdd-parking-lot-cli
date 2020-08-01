@@ -1,8 +1,8 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.StandardParkingBoy;
+import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NeedProvideParkingTicketException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
@@ -94,10 +94,12 @@ class StandardParkingBoyTest {
 
     // when
     standardParkingBoy.fetching(ticket);
-    Car fetchedCar = standardParkingBoy.fetching(ticket);
+    UnrecognizedPackingTicketException exception =
+        assertThrows(
+            UnrecognizedPackingTicketException.class, () -> standardParkingBoy.fetching(ticket));
 
     // then
-    assertNull(fetchedCar);
+    assertEquals("Unrecognized parking ticket.", exception.getMessage());
   }
 
   @Test
