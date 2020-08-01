@@ -2,6 +2,7 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideCarException;
 import com.oocl.cultivation.exception.NeedProvideParkingTicketException;
 import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
@@ -15,6 +16,9 @@ public abstract class AbstractParkingBoy {
   private List<ParkingLot> parkingLots;
 
   public Ticket parking(Car car) throws RuntimeException {
+    if (null == car) {
+      throw new NeedProvideCarException();
+    }
     if (this.parkingLots.stream().findAny().filter(lot -> lot.hasCar(car)).isPresent()) {
       throw new RepeatedParkingException();
     }

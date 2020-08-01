@@ -4,6 +4,7 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideCarException;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
@@ -135,19 +136,21 @@ class StandardParkingBoyTest {
     assertEquals("This car is parked", exception.getMessage());
   }
 
-  //  @Test
-  //  void should_get_no_ticket_when_park_given_a_null_car_and_a_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-  //
-  //    // when
-  //    Ticket ticket = standardParkingBoy.parking(null);
-  //
-  //    // then
-  //    assertNull(ticket);
-  //  }
+  @Test
+  void should_throw_need_car_exception_when_park_given_a_null_car_and_a_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+
+    // when
+    NeedProvideCarException exception =
+        assertThrows(NeedProvideCarException.class, () -> standardParkingBoy.parking(null));
+
+    // then
+    assertEquals("Please provide your car.", exception.getMessage());
+  }
+
   //
   //  @Test
   //  void
