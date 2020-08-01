@@ -202,25 +202,6 @@ class StandardParkingBoyTest {
   }
   //
   //  @Test
-  //  void should_get_parking_lot_2_when_park_given_8_car_and_2_parking_lots_and_1_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");
-  //    ParkingLot parkingLot2 = new ParkingLot("ParkingLot_2");
-  //    StandardParkingBoy standardParkingBoy =
-  //        new StandardParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
-  //
-  //    // when
-  //    Ticket ticket = null;
-  //    for (int i = 0; i < 8; i++) {
-  //      ticket = standardParkingBoy.park(new Car("A000" + i));
-  //    }
-  //
-  //    // then
-  //    assertNotNull(ticket);
-  //    assertEquals("ParkingLot_2", ticket.getPosition());
-  //  }
-  //
-  //  @Test
   //  void should_get_parking_lot_1_when_park_given_7_cars_and_2_parking_lot_and_1_parking_boy() {
   //    // given
   //    ParkingLot parkingLot1 = new ParkingLot("ParkingLot_1");

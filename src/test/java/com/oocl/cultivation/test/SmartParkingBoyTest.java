@@ -4,22 +4,27 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class SmartParkingBoyTest {
 
-    @Test
-    void should_get_lot_1_when_find_parking_lot_given_a_SmartParkingBoy_and_two_parking_lot() {
-        // given
-//        ParkingLot parkingLot1 = new ParkingLot("1");
-//        ParkingLot parkingLot2 = new ParkingLot("2");
-        SmartParkingBoy smartParkingBoy = mock(SmartParkingBoy.class);
-//        when(smartParkingBoy.getParkingLots()).thenReturn()
+  @Test
+  void should_get_lot_2_when_find_park_lot_given_a_smart_parking_boy_and_two_parking_lot() {
+    // given
+    ParkingLot parkingLot1 = new ParkingLot("1", 5);
+    ParkingLot parkingLot2 = new ParkingLot("2", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Arrays.asList(parkingLot1, parkingLot2));
 
-        // when
+    // when
+    ParkingLot parkingLot = smartParkingBoy.findWillBeParkedParkingLot();
 
-
-        // then
-    }
+    // then
+    assertEquals(10, parkingLot.getEmptyPositionNumber());
+  }
 }
