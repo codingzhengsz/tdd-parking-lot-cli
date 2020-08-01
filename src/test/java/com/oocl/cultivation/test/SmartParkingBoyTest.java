@@ -186,4 +186,22 @@ public class SmartParkingBoyTest {
     // then
     assertEquals("Please provide your parking ticket.", exception.getMessage());
   }
+
+  @Test
+  void should_get_ticket_when_park_given_1_car_and_2_parking_lots_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot1 = new ParkingLot("1", 1);
+    ParkingLot parkingLot2 = new ParkingLot("2", 1);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Arrays.asList(parkingLot1, parkingLot2));
+    Car car = new Car();
+
+    // when
+    Ticket ticket = smartParkingBoy.parking(car);
+
+    // then
+    assertNotNull(ticket);
+    assertTrue(parkingLot1.isFull());
+    assertFalse(parkingLot2.isFull());
+  }
 }
