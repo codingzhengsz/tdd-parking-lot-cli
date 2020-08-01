@@ -2,7 +2,9 @@ package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.SmartParkingBoy;
+import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
+import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,5 +47,20 @@ public class SmartParkingBoyTest {
 
     // then
     assertEquals("Not enough position.", exception.getMessage());
+  }
+
+  @Test
+  void should_return_ticket_when_park_given_a_car_and_a_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car car = new Car();
+
+    // when
+    Ticket ticket = smartParkingBoy.parking(car);
+
+    // then
+    assertNotNull(ticket);
   }
 }
