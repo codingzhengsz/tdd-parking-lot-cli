@@ -63,4 +63,23 @@ public class SmartParkingBoyTest {
     // then
     assertNotNull(ticket);
   }
+
+  @Test
+  void should_return_tickets_when_park_given_2_car_and_a_smart_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("1", 10);
+    SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
+    smartParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car carA = new Car();
+    Car carB = new Car();
+
+    // when
+    Ticket ticketA = smartParkingBoy.parking(carA);
+    Ticket ticketB = smartParkingBoy.parking(carB);
+
+    // then
+    assertNotNull(ticketA);
+    assertNotNull(ticketB);
+    assertNotEquals(ticketA, ticketB);
+  }
 }
