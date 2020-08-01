@@ -21,9 +21,6 @@ public class ParkingLot {
   }
 
   public Ticket park(Car car) throws RuntimeException {
-    if (this.ticketCarMap.containsValue(car)) {
-      throw new RepeatedParkingException("Repeated Car");
-    }
     Ticket ticket = new Ticket();
     this.ticketCarMap.put(ticket, car);
     return ticket;
@@ -37,6 +34,10 @@ public class ParkingLot {
 
   public boolean isNotFull() {
     return this.ticketCarMap.size() != this.capacity;
+  }
+
+  public boolean hasCar(Car car) {
+    return this.ticketCarMap.containsValue(car);
   }
 
   public int getEmptyPositionNumber() {

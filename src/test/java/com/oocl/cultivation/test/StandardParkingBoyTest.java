@@ -5,6 +5,7 @@ import com.oocl.cultivation.StandardParkingBoy;
 import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.entity.Ticket;
 import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.RepeatedParkingException;
 import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
 
@@ -117,22 +118,23 @@ class StandardParkingBoyTest {
     assertEquals("Not enough position.", exception.getMessage());
   }
 
-  //  @Test
-  //  void should_get_no_ticket_when_park_given_a_parked_car_and_a_parking_boy() {
-  //    // given
-  //    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
-  //    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
-  //    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-  //    Car parkedCar = new Car();
-  //    standardParkingBoy.parking(parkedCar);
-  //
-  //    // when
-  //    Ticket ticket = standardParkingBoy.parking(parkedCar);
-  //
-  //    // then
-  //    assertNull(ticket);
-  //  }
-  //
+  @Test
+  void should_get_no_ticket_when_park_given_a_parked_car_and_a_parking_boy() {
+    // given
+    ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
+    StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+    standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
+    Car parkedCar = new Car();
+    standardParkingBoy.parking(parkedCar);
+
+    // when
+    RepeatedParkingException exception =
+        assertThrows(RepeatedParkingException.class, () -> standardParkingBoy.parking(parkedCar));
+
+    // then
+    assertEquals("This car is parked", exception.getMessage());
+  }
+
   //  @Test
   //  void should_get_no_ticket_when_park_given_a_null_car_and_a_parking_boy() {
   //    // given
