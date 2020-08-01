@@ -1,4 +1,4 @@
-package com.oocl.exception;
+package com.oocl.cultivation.exception;
 
 public class RepeatedParkingException extends RuntimeException {
   public RepeatedParkingException(String message) {

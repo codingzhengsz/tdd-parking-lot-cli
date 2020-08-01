@@ -1,7 +1,7 @@
 package com.oocl.cultivation.test;
 
 import com.oocl.cultivation.AbstractParkingBoy;
-import com.oocl.cultivation.Car;
+import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.ParkingLot;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class AbstractParkingBoyTest {
         // given
         AbstractParkingBoy abstractParkingBoy = mock(AbstractParkingBoy.class, CALLS_REAL_METHODS);
         ParkingLot parkingLot = mock(ParkingLot.class);
-        Car car = new Car("");
+        Car car = new Car();
 
         when(abstractParkingBoy.findWillBeParkedParkingLot()).thenReturn(parkingLot);
         // when

@@ -1,12 +1,12 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.Car;
+import com.oocl.cultivation.entity.Car;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.StandardParkingBoy;
-import com.oocl.cultivation.Ticket;
-import com.oocl.exception.NeedProvideParkingTicketException;
-import com.oocl.exception.NotEnoughPositionException;
-import com.oocl.exception.UnrecognizedPackingTicketException;
+import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideParkingTicketException;
+import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -20,13 +20,13 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car("HK-0754");
+    Car car = new Car();
 
     // when
     Ticket ticket = standardParkingBoy.parking(car);
 
     // then
-//    assertEquals("HK-0754-Ticket", ticket.getNumber());
+    assertNotNull(ticket);
   }
 
   @Test
@@ -35,16 +35,17 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car carA = new Car("");
-    Car carB = new Car("");
+    Car carA = new Car();
+    Car carB = new Car();
 
     // when
     Ticket ticketA = standardParkingBoy.parking(carA);
     Ticket ticketB = standardParkingBoy.parking(carB);
 
     // then
-    assertEquals("", ticketA.getNumber());
-    assertEquals("", ticketB.getNumber());
+    assertNotNull(ticketA);
+    assertNotNull(ticketB);
+    assertNotEquals(ticketA, ticketB);
   }
 
   @Test
@@ -53,14 +54,14 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car("HK-0754");
+    Car car = new Car();
     Ticket ticket = standardParkingBoy.parking(car);
 
     // when
     Car fetchedCar = standardParkingBoy.fetching(ticket);
 
     // then
-    assertEquals("HK-0754", fetchedCar.getLicense());
+    assertNotNull(fetchedCar);
   }
 
   @Test
@@ -69,15 +70,17 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car("A0001");
+    Car car = new Car();
     standardParkingBoy.parking(car);
-    Ticket ticket = new Ticket("A0002", "A0002-Ticket", "ParkingLot_1");
+    Ticket ticket = new Ticket();
 
     // when
-    Car fetchedCar = standardParkingBoy.fetching(ticket);
+    UnrecognizedPackingTicketException exception =
+        assertThrows(
+            UnrecognizedPackingTicketException.class, () -> standardParkingBoy.fetching(ticket));
 
     // then
-    assertNull(fetchedCar);
+    assertEquals("Unrecognized parking ticket.", exception.getMessage());
   }
 
   @Test
@@ -86,7 +89,7 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car("A0001");
+    Car car = new Car();
     Ticket ticket = standardParkingBoy.parking(car);
 
     // when
@@ -107,7 +110,7 @@ class StandardParkingBoyTest {
     // when
     Ticket ticket = null;
     for (int i = 0; i <= 20; i++) {
-      ticket = standardParkingBoy.parking(new Car("A000" + i));
+      ticket = standardParkingBoy.parking(new Car());
     }
 
     // then
@@ -120,7 +123,7 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car parkedCar = new Car("A0001");
+    Car parkedCar = new Car();
     standardParkingBoy.parking(parkedCar);
 
     // when
@@ -151,7 +154,7 @@ class StandardParkingBoyTest {
     ParkingLot parkingLot = new ParkingLot("ParkingLot_1", 10);
     StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
-    Car car = new Car("A0001");
+    Car car = new Car();
     Ticket ticket = standardParkingBoy.parking(car);
 
     // when
@@ -194,12 +197,12 @@ class StandardParkingBoyTest {
     standardParkingBoy.setParkingLots(Collections.singletonList(parkingLot));
 
     // when
-    standardParkingBoy.parking(new Car("A001"));
+    standardParkingBoy.parking(new Car());
     Throwable exception =
         assertThrows(
             NotEnoughPositionException.class,
             () -> {
-              standardParkingBoy.parking(new Car("A001"));
+              standardParkingBoy.parking(new Car());
             });
     // then
     assertEquals("Not enough position.", exception.getMessage());

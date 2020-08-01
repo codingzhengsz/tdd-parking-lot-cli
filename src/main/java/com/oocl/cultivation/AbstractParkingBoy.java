@@ -1,9 +1,13 @@
 package com.oocl.cultivation;
 
-import com.oocl.exception.NeedProvideParkingTicketException;
-import com.oocl.exception.UnrecognizedPackingTicketException;
+import com.oocl.cultivation.entity.Car;
+import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NeedProvideParkingTicketException;
+import com.oocl.cultivation.exception.UnrecognizedPackingTicketException;
 
+import java.security.UnrecoverableEntryException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractParkingBoy {
 
@@ -17,13 +21,12 @@ public abstract class AbstractParkingBoy {
 
   public Car fetching(Ticket ticket) throws RuntimeException {
     if (null == ticket) {
-      throw new NeedProvideParkingTicketException("Please provide your parking ticket.");
+      throw new NeedProvideParkingTicketException();
     }
-    Car car = this.parkingLots.stream().map(lot -> lot.fetch(ticket)).findFirst().orElse(null);
-    if (null == car) {
-      throw new UnrecognizedPackingTicketException("Unrecognized parking ticket.");
-    }
-    return car;
+    return this.parkingLots.stream()
+        .findAny()
+        .map(parkingLot -> parkingLot.fetch(ticket))
+        .orElseThrow(UnrecognizedPackingTicketException::new);
   }
 
   public List<ParkingLot> getParkingLots() {

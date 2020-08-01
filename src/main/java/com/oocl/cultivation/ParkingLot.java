@@ -1,7 +1,9 @@
 package com.oocl.cultivation;
 
-import com.oocl.exception.NotEnoughPositionException;
-import com.oocl.exception.RepeatedParkingException;
+import com.oocl.cultivation.entity.Car;
+import com.oocl.cultivation.entity.Ticket;
+import com.oocl.cultivation.exception.NotEnoughPositionException;
+import com.oocl.cultivation.exception.RepeatedParkingException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,10 +18,6 @@ public class ParkingLot {
     this.name = name;
     this.capacity = capacity;
     this.ticketCarMap = new HashMap<>();
-  }
-
-  public Map<Ticket, Car> getTicketCarMap() {
-    return ticketCarMap;
   }
 
   public void setCapacity(int capacity) {
